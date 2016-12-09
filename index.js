@@ -1,30 +1,38 @@
-var d, num
-var ld = require('lodash);
+var message = require('./message.js');
 
+module.exports = function (world) {
+    var day = new Date().getDate()
 
-module.exports = function(objects) {
-    
-    var string = "hello"
-    
-    
-    for(i=0; i++)
-    {
-    if(objects[i].name.val.indexOf("day") > 0) {
-        string += '! Today is' +objects.name.val
+    var conf = [
+        {
+            name: {
+                val: day
+            },
+            world: {
+                type: function () {
+                    switch (world) {
+                        case 'world' :
+                            return '1'
+                        case 'universe' :
+                            return '2'
+                        case "planet" :
+                            return "3"
+                        default:
+                            return world;
+                    }
+                }
+            }
+        },
+        {
+            default : "hello world"
+        }
+    ]
+
+    if (world == undefined) {
+        return conf[1].default;
+
+    } else {
+        return message.message(conf)
     }
-    
-     
-        string += ' and the time is ' + Date.now();
-        
-        
-        string += "welcome to the "+objects[i].world.type
-        
-        
-        return string
-    
-        
-    }
-    
-    return "hello world";
-
 }
+
